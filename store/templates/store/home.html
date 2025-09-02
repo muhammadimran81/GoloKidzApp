@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+{% block title %}Home - Golo Kidz Clothing{% endblock %}
+{% block content %}
+<h1 class="mb-4">Golo Kidsz Clothing Collection</h1>
+
+<!-- Filters -->
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-3">
+        <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.search }}">
+    </div>
+    <div class="col-md-3">
+        <select name="category" class="form-control">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:'s' %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<!-- Products Grid -->
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted">SAR {{ product.price }}</p>
+                <a href="{% url 'product_detail' product.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No products found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

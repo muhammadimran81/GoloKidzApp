@@ -1,0 +1,15 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ product.name }} - Kids Clothing{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+        <h2>{{ product.name }}</h2>
+        <p class="text-muted">Category: {{ product.category.name }}</p>
+        <p>{{ product.description }}</p>
+        <h4 class="text-success">SAR {{ product.price }}</h4>
+    </div>
+</div>
+{% endblock %}
